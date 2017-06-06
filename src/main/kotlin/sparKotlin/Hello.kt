@@ -3,12 +3,19 @@ package sparKotlin
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import spark.Request
 import spark.Spark.*
+import spark.kotlin.*
 
 fun main(args: Array<String>) {
 
-    exception(Exception::class.java) { e, req, res -> e.printStackTrace() }
+    val http: Http = ignite()
 
     val customerDao = CustomerDao()
+
+    exception(Exception::class.java) { e, req, res -> e.printStackTrace() }
+
+    http.get("/hello") {
+        "Hello"
+    }
 
     path("/users") {
 
